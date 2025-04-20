@@ -1,5 +1,9 @@
 const prompt = require('prompt-sync')({sigint: true});
 
+const getRandom = (choices:number) => {
+  return Math.floor(Math.random()*choices);
+}
+
 enum SquareState {
   Empty
 }
@@ -15,25 +19,12 @@ enum LinkDirection {
   Diagonal
 }
 
-// enum Direction {
-//   Up,
-//   Down,
-//   Left,
-//   Right,
-// }
-
 type MazeNavigator = {
   currentSquare:Square
   pathsToExclude:Link[]
 }
 
-const getRandom = (choices:number) => {
-  return Math.floor(Math.random()*choices);
-}
-
 class Square {
-  // #explored:boolean=false
-  #deadEnd:boolean=false
   #row:number
   #column:number
   #state:SquareState
@@ -55,12 +46,6 @@ class Square {
   }
 
   drawGraph() {
-  //drawGraph(currentPosition:Square|undefined) {
-    // if (this===currentPosition) {
-    //   return "X"
-    // } else if (this.#explored){
-    //   return "o"
-    // } else 
     if (this.#state === SquareState.Empty){
       return "."
     }
@@ -82,10 +67,6 @@ class Square {
     return `(${this.row}, ${this.column})`;
   }
 
-  // set explored(explored:boolean) {
-  //   this.#explored = explored;
-  // }
-
   get deadEnd() {
     return this.paths.length===1;
   }
@@ -99,17 +80,13 @@ class Square {
   }
 
   getRandomPath({exclude}:{exclude:Link[]}={exclude:[]}) {
-    
     const options:Link[] = this.paths.filter(link=>!exclude.includes(link));
-
     if (options.length===0) {
       return null;
     } else {
       return options[getRandom(options.length)];
     }
-      
   }
-
 }
 
 class Link {
@@ -179,13 +156,11 @@ class Link {
         return this.#a;
       } 
     }
-
     return currentSquare;
   }
 }
 
 class MazeMap {
-  // #position: Square | undefined
   #width: number
   #height: number
   #squares: Square[][]
@@ -240,18 +215,16 @@ class MazeMap {
     let output = "\n";
 
     for (let i=0;i<this.#height;i++) {
-
       let rows = "";
       let columns = "";
 
       for (let j=0;j<this.#width;j++) {
-        
         rows += this.#squares[i][j].drawGraph()
 
         if (j<this.#width-1) {
           rows += this.#paths.x[i][j].drawGraph();
         }
-          
+
         if (i<this.#height-1) {
           columns += this.#paths.y[i][j].drawGraph();
         }
@@ -262,7 +235,6 @@ class MazeMap {
       }
 
       output += `${rows}\n${columns}\n`
-
     }
     return output;
   }
@@ -277,12 +249,10 @@ class MazeMap {
     output += "\n"
 
     for (let i=0;i<this.#height;i++) {
-
       let rows = "";
       let columns = "";
 
       for (let j=0;j<this.#width;j++) {
-        
         rows += this.#squares[i][j].draw()
 
         if (j<this.#width-1) {
@@ -298,14 +268,9 @@ class MazeMap {
         if (j<this.#width-1) {
           columns += ".";
         }
-
-
       }
 
-
-
       output += `|${rows}|\n.${columns}.\n`
-
     }
     return output;
   }
@@ -319,13 +284,8 @@ class MazeMap {
       pathsToExclude: [],
     }
 
-    // this.#position = navigator.currentSquare;
-
     let exploredSquares:Square[] = [navigator.currentSquare];
-    //navigator.currentSquare.explored = true;
-
     let pathTrail:MazeNavigator[] = []
-
     let explorationComplete = false;
 
     while (!explorationComplete) {
@@ -335,7 +295,6 @@ class MazeMap {
         if (exploredSquares.includes(newSquare)) {
           randomPath.state = LinkState.Wall;          
         } else {
-          //newSquare.explored = true;
           navigator.pathsToExclude.push(randomPath);
           pathTrail.push({...navigator});
           exploredSquares.push(newSquare);
@@ -343,41 +302,20 @@ class MazeMap {
             currentSquare: newSquare,
             pathsToExclude: [randomPath]
           }
-          // this.#position = navigator.currentSquare;
         }
       } else {
         if (pathTrail.length === 0) {
           explorationComplete = true;
         } else {
           navigator = pathTrail.pop();
-
-          // this.#position = navigator.currentSquare;
         }
       }
-
-      // console.log(maze.drawGraph());
-
-      // console.log("currentSquare; ",navigator.currentSquare.coordinates);
-
-      // console.log("pathsToExclude: [")
-
-      // for (const path of navigator.pathsToExclude) {
-      //   console.log(path.coordinates,",");
-      // }
-
-      // console.log("]")
-
-      // prompt('Continue?: ');
-
     }
-    
   }
 }
 
 const maze = new MazeMap(30,14);
 
 console.log(maze.drawGraph());
-
 console.log(maze.draw());
-
 console.log(maze.deadEnds.length," dead ends");
