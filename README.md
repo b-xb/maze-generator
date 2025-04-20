@@ -1,6 +1,6 @@
 # Maze generator code
 
-## About
+## Summary
 
 A simple maze generator code example, written using Typescript and run using Node.js
 
