@@ -6,27 +6,34 @@ A simple maze generator code example written using Typescript and run using Node
 
 ## How to run this code
 
-Prerequisites
-- Node
+### Prerequisites
+
+Stuff you need to install first
+
+- node
 - pnpm (or some other package manager like npm)
 
-1. Install dependencies
+### What next?
 
-```
-#npm
-npm install
+After cloning the repository do the following...
 
-#pnpm
-pnpm install
-```
+1.  Install dependencies
 
-2. Run the code
+    ```
+    #npm
+    npm install
 
-```
-#npm
-npm run start
+    #pnpm
+    pnpm install
+    ```
 
-#pnpm
-pnpm start
-```
+2.  Run the code
+
+    ```
+    #npm
+    npm run start
+
+    #pnpm
+    pnpm start
+    ```
 
