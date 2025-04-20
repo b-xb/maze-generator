@@ -4,7 +4,7 @@
 
 A simple maze generator code example, written using Typescript and run using Node.js
 
-## How to Maze Algorithm Works
+## How the Maze Algorithm Works
 
 The aim behind this algorithm is to create a maze in which only one direct path exists between any two points.
 
