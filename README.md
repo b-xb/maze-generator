@@ -8,11 +8,11 @@ A simple maze generator code example, written using Typescript and run using Nod
 
 The aim behind this algorithm is to generate a maze in which there is only one direct path between any two squares on the grid.
 
-The algorithm starts at a random square on a grid, and then travels around the grid (randomly) along previously unexplored connections between adjacent squares. If, while travelling along a path, the algorithm ends up at a square that it has visited before, then this means that the algorithm has travelled in a loop. The existence of a path that loops back to a previously visited square means that two paths can be followed to reach any other square on that loop. We don't want that to happen, and so the last connection travelled along is blocked with a walled, preventing the looping path from existing.
+The algorithm starts at a random square on a grid, and then travels around the grid (randomly) along previously unexplored connections between adjacent squares. If, while travelling along a path, the algorithm ends up at a square that it has visited before, then this means that the algorithm has travelled in a loop. The existence of a path that loops back to a previously visited square means that two paths can be followed to reach any other square on that loop. We don't want that to happen, and so the last connection travelled along is blocked with a wall, removing the looping path from the grid.
 
 The algorithm will continues exploring all unexplored paths, putting up walls along the way, until it runs out of paths to explore and the algorithm is complete.
 
-Using this algorithm generates random paths throughout the grid while ensuring that 
+Using this algorithm generates random paths throughout the grid while ensuring that:
 1. Every square is reachable from every other square on the grid
 2. No loops are created (ensuring that only one direct path exists between any two squares)
 
@@ -20,17 +20,17 @@ The result of this means that wherever you decide to put the start and end point
 
 The code for generating the maze can be found on the `#generateMaze()` method of the `MazeMap` class.
 
-### Psuedocode
+### Pseudocode
 
 The current algorithm that is implemented uses a depth-first approach when exploring the graph tree.
 
 1.  Create a grid of squares, thinking of each square as if it is a node on a graph
 2.  Create an edge between every square and it's directly horizontal and vertical neighbours 
 3.  Pick a random square from the grid of squares
-4.  Add the square a list of squares that have been visited
+4.  Add this square to a list of squares that have been visited already
 5.  Create an empty list which will be used to store the path we follow
-6.  Pick a random edge that is connected to this square that is not a wall and hasn't already been travelled along
-7.  Are there any random edges left to explore?
+6.  Pick a random edge connected to this square that is not a wall and hasn't already been travelled along
+7.  Are there any random edges (connected to this square) left to explore?
     1.  If there are edges left to explore (connected to this square):
         1.  Examine the square at the other side of this edge
         2.  Has this new square been visted before?
