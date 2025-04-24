@@ -31,7 +31,7 @@ The current algorithm that is implemented uses a depth-first approach when explo
 5.  Create an empty list which will be used to store the path we follow
 6.  Pick a random edge connected to this square that is not a wall and hasn't already been travelled along
 7.  Was a random edge found?
-    1.  If a random edge was found:
+    1.  If an edge was found:
         1.  Examine the square at the other side of this edge
         2.  Has this new square been visted before?
             1.  If the new square has been visited before:
@@ -40,7 +40,7 @@ The current algorithm that is implemented uses a depth-first approach when explo
             2.  If not:
                 1. Add the current square to our path list
                 2. And now go to step 5 starting from the new square
-    2.  If a random edge was not found:
+    2.  If an edge was not found:
         1. Check to see if you can go backwards (i.e. check if there are still squares on our path list)
             1.  If you can go backwards:
                 1.  Pop the last square added to the path list
